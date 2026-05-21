@@ -96,7 +96,6 @@ BT3/
 
 ```bash
 # Sao chép toàn bộ thư mục BT3 vào htdocs (XAMPP)
-Copy-Item -Recurse "D:\PTIT\LTW\BT3" "C:\xampp\htdocs\BT3"
 ```
 
 ### Bước 2: Import Database
