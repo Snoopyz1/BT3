@@ -1,0 +1,43 @@
+# ============================================================
+# BT3/.htaccess — Apache configuration
+# ============================================================
+
+# Charset mặc định
+AddDefaultCharset UTF-8
+
+# Bảo vệ file nhạy cảm
+<FilesMatch "\.(sql|log|md|json|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bảo vệ thư mục config, database
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Chặn truy cập trực tiếp vào /config/
+    RewriteRule ^config/ - [F,L]
+    
+    # Chặn truy cập thư mục database
+    RewriteRule ^database/ - [F,L]
+</IfModule>
+
+# Tắt directory listing
+Options -Indexes
+
+# PHP settings
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 60
+    php_value memory_limit 256M
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>
+
+# CORS headers cho API
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options SAMEORIGIN
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
